@@ -7,11 +7,13 @@ import {
   Delete,
   Put,
 } from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
 import { ArtistsService } from './artists.service';
 import { CreateArtistDto } from './dto/create-artist.dto';
 import { UpdateArtistDto } from './dto/update-artist.dto';
 
-@Controller('artists')
+@ApiTags('Artists')
+@Controller('artist')
 export class ArtistsController {
   constructor(private readonly artistsService: ArtistsService) {}
 
@@ -27,16 +29,16 @@ export class ArtistsController {
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.artistsService.findOne(+id);
+    return this.artistsService.findArtist(id);
   }
 
   @Put(':id')
   update(@Param('id') id: string, @Body() updateArtistDto: UpdateArtistDto) {
-    return this.artistsService.update(+id, updateArtistDto);
+    return this.artistsService.update(id, updateArtistDto);
   }
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.artistsService.remove(+id);
+    return this.artistsService.remove(id);
   }
 }
