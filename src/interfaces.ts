@@ -1,4 +1,4 @@
-interface User {
+interface IUser {
   id: string; // uuid v4
   login: string;
   password: string;
@@ -7,13 +7,13 @@ interface User {
   updatedAt: number; // timestamp of last update
 }
 
-interface Artist {
+interface IArtist {
   id: string; // uuid v4
   name: string;
   grammy: boolean;
 }
 
-interface Track {
+interface ITrack {
   id: string; // uuid v4
   name: string;
   artistId: string | null; // refers to Artist
@@ -21,17 +21,17 @@ interface Track {
   duration: number; // integer number
 }
 
-interface Album {
+interface IAlbum {
   id: string; // uuid v4
   name: string;
   year: number;
   artistId: string | null; // refers to Artist
 }
 
-interface Favorites {
+interface IFavorites {
   artists: string[]; // favorite artists ids
   albums: string[]; // favorite albums ids
   tracks: string[]; // favorite tracks ids
 }
 
-export { User, Artist, Track, Album, Favorites };
+export { IUser, IArtist, ITrack, IAlbum, IFavorites };
