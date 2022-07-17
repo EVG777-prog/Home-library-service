@@ -1,8 +1,9 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { IAlbum } from 'src/interfaces';
 import { CreateAlbumDto } from './dto/create-album.dto';
 import { UpdateAlbumDto } from './dto/update-album.dto';
 import { Album } from './entities/album.entity';
+import { validate as uuidValidate } from 'uuid';
 
 @Injectable()
 export class AlbumsService {
@@ -19,7 +20,17 @@ export class AlbumsService {
   }
 
   findAlbum(id: string): IAlbum {
-    return this._albums.find((album) => album.id === id);
+    if (!uuidValidate(id)) {
+      throw new HttpException('Invalid album id', HttpStatus.BAD_REQUEST);
+    }
+
+    const album = this._albums.find((album) => album.id === id);
+
+    if (!album) {
+      throw new HttpException('Artist not found', HttpStatus.NOT_FOUND);
+    }
+
+    return album;
   }
 
   update(id: string, updateAlbumDto: UpdateAlbumDto): IAlbum {

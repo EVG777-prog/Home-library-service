@@ -3,6 +3,8 @@ import {
   Controller,
   Delete,
   Get,
+  HttpCode,
+  HttpStatus,
   Param,
   Post,
   Put,
@@ -20,6 +22,7 @@ export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
   @Get('/')
+  @HttpCode(HttpStatus.OK)
   @ApiResponse({
     type: [User],
   })
@@ -28,6 +31,7 @@ export class UsersController {
   }
 
   @Get('/:id')
+  @HttpCode(HttpStatus.OK)
   @ApiResponse({
     type: User,
   })
@@ -36,6 +40,7 @@ export class UsersController {
   }
 
   @Delete(':id') // обработает DELETE
+  @HttpCode(HttpStatus.NO_CONTENT)
   @ApiResponse({
     type: User,
   })
@@ -44,6 +49,7 @@ export class UsersController {
   }
 
   @Post('/')
+  @HttpCode(HttpStatus.CREATED)
   @ApiResponse({
     type: User,
   })
@@ -52,6 +58,7 @@ export class UsersController {
   }
 
   @Put(':id')
+  @HttpCode(HttpStatus.OK)
   @ApiResponse({
     type: User,
   })
